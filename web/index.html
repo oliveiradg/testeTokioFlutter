@@ -41,5 +41,29 @@
     }
   </script>
   <script src="main.dart.js" type="application/javascript"></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js";
+    import { } from "https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"
+    import { } from "https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"
+    import { } from "https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBawqbpx6ktaFl9nTqtvRWSWWzPq7U_dzA",
+      authDomain: "testetokio-d1a33.firebaseapp.com",
+      projectId: "testetokio-d1a33",
+      storageBucket: "testetokio-d1a33.appspot.com",
+      messagingSenderId: "912012547274",
+      appId: "1:912012547274:web:c9f58549642e8a09c25033"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+  </script>
+
 </body>
 </html>
