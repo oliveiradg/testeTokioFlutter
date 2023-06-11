@@ -82,7 +82,9 @@ class _LoginViewState extends State<LoginView> {
                             Row(
                               children: [
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                   
+                                  },
                                   child: Text(
                                     'Entrar',
                                     style: TextStyle(
@@ -91,7 +93,10 @@ class _LoginViewState extends State<LoginView> {
                                   ),
                                 ),
                                 TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    
+                                  },
+                                  
                                   child: Text(
                                     'Cadastrar',
                                     style: TextStyle(
