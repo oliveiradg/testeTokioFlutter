@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:teste_tokio/app/views/home_page_view.dart';
-import 'package:teste_tokio/app/views/login_view.dart';
+
 
 void main() => runApp(
 const  MyApp(), // Wrap your app

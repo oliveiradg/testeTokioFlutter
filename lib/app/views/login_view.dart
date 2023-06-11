@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:teste_tokio/app/views/commom_Widgets/custom_texField.dart';
+import 'package:teste_tokio/app/views/components/card_login.dart';
+import 'package:teste_tokio/app/views/components/custom_action_button.dart';
+import 'package:teste_tokio/app/views/components/custom_texField.dart';
 import 'package:teste_tokio/utils/color_theme_utils.dart';
 
 class LoginView extends StatefulWidget {
@@ -9,13 +11,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  bool _checkbox = false;
-  // TextEditingController _controllerNome =
-  //     TextEditingController(text: 'Teste Tokio');
-  // TextEditingController _controllerEmail =
-  //     TextEditingController(text: 'teste@tokio.com');
-  // TextEditingController _controllerSenha =
-  //     TextEditingController(text: '12345678');
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,135 +62,28 @@ class _LoginViewState extends State<LoginView> {
                     child: SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.only(top: 120, bottom: 40) ,
-                    child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(16),
-                          ),
-                        ),
-                        child: Container(
-                          padding: EdgeInsets.all(40),
-                          width: 400,
-                        
-                          color: PaletaCores.corFSecundaria,
-                          child: Column(children: [
-                            Row(
-                              children: [
-                                TextButton(
-                                  onPressed: () {
-                                   
-                                  },
-                                  child: Text(
-                                    'Entrar',
-                                    style: TextStyle(
-                                        color: PaletaCores.corPrimaria,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    
-                                  },
-                                  
-                                  child: Text(
-                                    'Cadastrar',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 12,
-                            ),
+                    child:       Stack(
+                      clipBehavior: Clip.none,
         
-                            //email
-                            const CustomTextField(
-                              label: 'CPF',
-                            ),
-        
-                            //senha
-                            const CustomTextField(
-                              label: 'Senha',
-                              labelStyle: TextStyle(color: Colors.white),
-                              isSecret: true,
-                            ),
-        
-                            SizedBox(
-                              height: 12,
-                            ),
-        
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Checkbox(
-                                    // tristate: true,
-                                    value: _checkbox,
-                                    onChanged: (newBool) {
-                                      setState(() {
-                                        _checkbox = newBool;
-                                      });
-                                    },
-                                    fillColor:
-                                        MaterialStateProperty.resolveWith<Color>(
-                                            (Set<MaterialState> states) {
-                                      if (states.contains(MaterialState.disabled)) {
-                                        return Colors.green.withOpacity(.32);
-                                      }
-                                      return Colors.green;
-                                    })),
-                                Text(
-                                  'Lembre-se de mim',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Esqueceu a senha?',
-                                    style: TextStyle(
-                                        color: PaletaCores.corPrimaria,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          //Botão redondo?
-                            Container(
-                              margin: EdgeInsets.only(top: 24),
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    PaletaCores.corPrimaria,
-                                    Colors.yellow[200]
-                                  ],
-                                ),
-                              ),
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_forward),
-                                color: Colors.white,
-                                onPressed: () {},
-                              ),
-                                
-                            ),
-                          ]),
-                          
-        
-               
-        
-                            
-                      
-                          
-                          
-                          
-                        ),
-                        ),
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>
+            [
+             
+              CardLogin(),
+           
+            ],
+          ),
+          Positioned(
+            child: CustomActionButton(),
+            right: 30,
+            left: 10,
+            bottom: -20,
+          ),
+        ],
+      )
+                    
                   ),
                 ),
                 
