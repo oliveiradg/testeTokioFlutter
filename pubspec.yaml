@@ -60,6 +60,7 @@ flutter:
     - assets/images/avatar.jpg
     - assets/images/logo-tokio-BRANCO.png
     - assets/images/avatar_tele.png
+    - assets/images/perfil.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

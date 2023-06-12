@@ -5,14 +5,21 @@ import 'package:firebase_storage/firebase_storage.dart';
 TextEditingController _controllerNome =
     TextEditingController(text: "João Oliveira");
 TextEditingController _controllerEmail =
-    TextEditingController(text: "joao.oliveira@hexagon.pro");
+    TextEditingController(text: "teste@tokiomarine.com");
 TextEditingController _controllerSenha =
     TextEditingController(text: "12345678");
   bool _cadastroUsuario = false;
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseStorage _storage = FirebaseStorage.instance;
 
+  
+
 class ValidarCampo {
+
+
+
+
+  
   _validarCampo() async {
     String nome = _controllerNome.text;
     String email = _controllerEmail.text;
@@ -55,3 +62,6 @@ class ValidarCampo {
     }
   }
 }
+
+
+
