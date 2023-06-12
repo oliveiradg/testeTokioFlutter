@@ -1,7 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
+
 import 'package:flutter/material.dart';
-import 'package:teste_tokio/app/controller/validarCampo.dart';
+import 'package:flutter/services.dart';
+import 'package:teste_tokio/app/models/usuario_model.dart';
+
 import 'package:teste_tokio/app/views/components/custom_texField.dart';
 import 'package:teste_tokio/utils/color_theme_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 TextEditingController _controllerNome =
     TextEditingController(text: "João Oliveira");
@@ -9,6 +16,81 @@ TextEditingController _controllerEmail =
     TextEditingController(text: "teste@tokiomarine.com");
 TextEditingController _controllerSenha =
     TextEditingController(text: "12345678");
+
+FirebaseAuth _auth = FirebaseAuth.instance;
+FirebaseStorage _storage = FirebaseStorage.instance;
+FirebaseFirestore _firestore = FirebaseFirestore.instance;
+bool _cadastroUsuario = false;
+Uint8List _arquivoImagemSelecionada;
+
+//upload imagem
+
+_uploadImagem(Usuario usuario) {
+  Uint8List arquivoSelecionado = _arquivoImagemSelecionada;
+  if (arquivoSelecionado != null) {
+    Reference imagemPerfilRef = _storage.ref("imagens/perfil/${usuario.idUsuario}.jpg");
+    UploadTask uploadTask = imagemPerfilRef.putData(arquivoSelecionado);
+
+    uploadTask.whenComplete(() async {
+      String linkImagem = await uploadTask.snapshot.ref.getDownloadURL();
+      print('link da imagem: $linkImagem');
+
+      usuario.urlImagem = linkImagem;
+
+      final usuariosRef = _firestore.collection("usuarios");
+      usuariosRef.doc(usuario.idUsuario).set(usuario.toMap()).then((value) {
+        //tela principal
+      });
+    });
+  }
+}
+
+_validarCampos() async {
+  String nome = _controllerNome.text;
+  String email = _controllerEmail.text;
+  String senha = _controllerSenha.text;
+
+  if (email.isNotEmpty && email.contains("@")) {
+    if (senha.isNotEmpty && senha.length > 7) {
+      if (_cadastroUsuario) {
+        if (_arquivoImagemSelecionada != null) {
+          if (nome.isNotEmpty && nome.length > 3) {
+            await _auth
+                .createUserWithEmailAndPassword(email: email, password: senha)
+                .then((auth) {
+              //Upload
+              String idUsuario = auth.user?.uid;
+              if (idUsuario != null) {
+                Usuario usuario = Usuario(idUsuario, nome, email);
+                _uploadImagem(usuario);
+              }
+              // print("Usuario cadastrado: $idUsuario");
+            });
+          } else {
+            print("Nome inválido, digite ao menos 3 caracteres");
+          }
+        } else {
+          print("Selecione uma imagem");
+        }
+
+        //Cadastro
+
+      } else {
+        //Login
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: senha)
+            .then((auth) {
+          String email = auth.user?.email;
+          print("Usuario cadastrado: $email");
+        });
+      }
+    } else {
+      print("Senha inválida");
+    }
+  } else {
+    print("Email inválido");
+  }
+}
 
 class CardLogin extends StatefulWidget {
   const CardLogin({Key key}) : super(key: key);
@@ -19,12 +101,22 @@ class CardLogin extends StatefulWidget {
 
 class _CardLoginState extends State<CardLogin> {
   bool _cadastroUsuario = false;
+  bool _checkbox = false;
+
+//selecionar imagem
+  _selecionarImagem() async {
+    FilePickerResult resultado =
+        await FilePicker.platform.pickFiles(type: FileType.image);
+
+    //recuperar o arquivo
+
+    setState(() {
+      _arquivoImagemSelecionada = resultado.files.single.bytes;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    bool _checkbox = false;
-
-   
-
     return Card(
       color: PaletaCores.corFSecundaria,
       elevation: 4,
@@ -38,72 +130,78 @@ class _CardLoginState extends State<CardLogin> {
         width: 400,
         child: Column(
           children: [
-             // Imaem perfil com botão
+            // Imaem perfil com botão
 
-    Visibility(
-      visible: _cadastroUsuario,
-        child: ClipOval(
-      child: Image.asset(
-        'assets/images/perfil.png',
-        width: 100,
-        height: 100,
-        fit: BoxFit.cover,
-      ),
-    )),
+            Visibility(
+                visible: _cadastroUsuario,
+                child: ClipOval(
+                  child: _arquivoImagemSelecionada != null
+                      ? Image.memory(
+                          _arquivoImagemSelecionada,
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        )
+                      : Image.asset(
+                          'assets/images/perfil.png',
+                          width: 100,
+                          height: 100,
+                          fit: BoxFit.cover,
+                        ),
+                )),
 
-    SizedBox(
-      height: 8,
-    ),
+            SizedBox(
+              height: 8,
+            ),
 
-   
             Row(
               children: [
-               
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                        color: PaletaCores.corPrimaria,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Switch(value: _cadastroUsuario, 
-                  onChanged: 
-                  
-                  (value) {
-                    setState(() {
-                      _cadastroUsuario = value;
-                    });
-                  }),
                 Text(
-                    'Cadastrar',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                
+                  'Login',
+                  style: TextStyle(
+                      color: PaletaCores.corPrimaria,
+                      fontWeight: FontWeight.bold),
+                ),
+                Switch(
+                    value: _cadastroUsuario,
+                    onChanged: (value) {
+                      setState(() {
+                        _cadastroUsuario = value;
+                      });
+                    }),
+                Text(
+                  'Cadastrar',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             SizedBox(
               height: 12,
             ),
 
-             Visibility(
-      visible: _cadastroUsuario,
-      child: OutlinedButton(
-        onPressed: () {},
-        child: Text('Selecionar Foto'),
-      ),
-    ),
+            Visibility(
+              visible: _cadastroUsuario,
+              child: OutlinedButton(
+                onPressed: () {
+                  setState(() {
+                    _selecionarImagem();
+                  });
+                },
+                child: Text('Selecionar Foto'),
+              ),
+            ),
 
-    SizedBox(height: 8,),
-        //Caixa de texto Nome para cadastro
-    Visibility(
-      visible: _cadastroUsuario,
-      child: CustomTextField(
-        label: 'Nome',
-       
-
-      ),
-      ),
-    
+            SizedBox(
+              height: 8,
+            ),
+            //Caixa de texto Nome para cadastro
+            Visibility(
+              visible: _cadastroUsuario,
+              child: CustomTextField(
+                label: 'Nome',
+              ),
+            ),
 
             //email
             const CustomTextField(
@@ -121,27 +219,27 @@ class _CardLoginState extends State<CardLogin> {
               height: 12,
             ),
 
-           Visibility(
-      visible: _cadastroUsuario,
-            child:   //Botão
-                          Container(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                ValidarCampo();
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  primary: PaletaCores.corPrimaria),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
-                                 "Cadastro" ,
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ),
-                            ),
-                          ),
-           ),
+            Visibility(
+              visible: _cadastroUsuario,
+              child: //Botão
+                  Container(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _validarCampos();
+                  },
+                  style: ElevatedButton.styleFrom(
+                      primary: PaletaCores.corPrimaria),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      "Cadastro",
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ),
+              ),
+            ),
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -167,7 +265,9 @@ class _CardLoginState extends State<CardLogin> {
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(height: 8,),
+                SizedBox(
+                  height: 8,
+                ),
                 TextButton(
                   onPressed: () {},
                   child: Text(
