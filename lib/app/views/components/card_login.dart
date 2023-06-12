@@ -43,7 +43,7 @@ class _CardLoginState extends State<CardLogin> {
 
     //Recuperar o arquivo
     setState(() {
-      _arquivoImagemSelecionado = resultado?.files.single.bytes;
+      _arquivoImagemSelecionado = resultado.files.single.bytes;
     });
 
   }
@@ -261,12 +261,12 @@ class _CardLoginState extends State<CardLogin> {
                     if (_cadastroUsuario) { 
                       _validarCampos();
                     } else
-                      _validarCampos();
+                    Navigator.pushReplacementNamed(context, "/HomePageView");
                     
 
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: PaletaCores.corPrimaria),
+                      backgroundColor: PaletaCores.corPrimaria),
                   child: Padding(
                     padding: EdgeInsets.symmetric(vertical: 8),
                     child: Text(

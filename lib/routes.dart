@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:teste_tokio/app/views/home_page_view.dart';
 import 'package:teste_tokio/app/views/login_view.dart';
