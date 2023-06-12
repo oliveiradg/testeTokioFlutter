@@ -10,15 +10,12 @@ class CardLogin extends StatefulWidget {
 }
 
 class _CardLoginState extends State<CardLogin> {
+  bool _cadastroUsuario = false;
   @override
   Widget build(BuildContext context) {
+    
       bool _checkbox = false;
-  // TextEditingController _controllerNome =
-  //     TextEditingController(text: 'Teste Tokio');
-  // TextEditingController _controllerEmail =
-  //     TextEditingController(text: 'teste@tokio.com');
-  // TextEditingController _controllerSenha =
-  //     TextEditingController(text: '12345678');
+
     return Card(
       color: PaletaCores.corFSecundaria,
       elevation: 4,
@@ -34,23 +31,29 @@ class _CardLoginState extends State<CardLogin> {
           children: [
             Row(
               children: [
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
+                Text(
                     'Entrar',
                     style: TextStyle(
                         color: PaletaCores.corPrimaria,
                         fontWeight: FontWeight.bold),
                   ),
-                ),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
+
+                  Switch(
+                    value: _cadastroUsuario, 
+                    onChanged: (bool valor){
+                      setState(() {
+                        _cadastroUsuario = valor;
+                      });
+                    }
+                    
+                    ),
+                
+               Text(
                     'Cadastrar',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                ),
+                
               ],
             ),
             SizedBox(
@@ -59,7 +62,7 @@ class _CardLoginState extends State<CardLogin> {
 
             //email
             const CustomTextField(
-              label: 'CPF',
+              label: 'Email',
             ),
 
             //senha
@@ -108,7 +111,7 @@ class _CardLoginState extends State<CardLogin> {
                 ),
               ],
             ),
-            //Botão redondo
+            
           ],
         ),
       ),

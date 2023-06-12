@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -17,10 +19,10 @@ class CustomActionButton extends StatefulWidget {
 class _CustomActionButtonState extends State<CustomActionButton> {
 
   void _abrirURL() async {
-    const url = 'https://www.tokiomarine.com.br/'; // URL do site que deseja abrir
+    const url = 'https://www.tokiomarine.com.br/'; 
 
     if (await canLaunch(url)) {
-      await launch(url, forceSafariVC: true, forceWebView: true);
+      await launch(url);
     } else {
       throw 'Não foi possível abrir $url';
     }
@@ -31,7 +33,7 @@ class _CustomActionButtonState extends State<CustomActionButton> {
       context,
       MaterialPageRoute(
         builder: (context) => WebView(
-          initialUrl: 'https://www.tokiomarine.com.br/', // URL do site que deseja abrir
+          initialUrl: 'https://www.tokiomarine.com.br/', 
           javascriptMode: JavascriptMode.unrestricted,
         ),
       ),
