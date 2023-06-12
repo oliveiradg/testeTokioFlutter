@@ -44,6 +44,6 @@ class TopoHomePage extends StatelessWidget {
               )
             ],
           ),
-        ));
+        ),);
   }
 }

@@ -33,6 +33,8 @@ dependencies:
   cloud_firestore: ^4.8.0
   firebase_storage: ^11.2.2
   flutter_svg: ^0.22.0
+  url_launcher: ^6.0.10
+  webview_flutter: ^2.2.0
 
 
 
@@ -57,6 +59,7 @@ flutter:
     - assets/images/logo-tokiomarine.svg
     - assets/images/avatar.jpg
     - assets/images/logo-tokio-BRANCO.png
+    - assets/images/avatar_tele.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

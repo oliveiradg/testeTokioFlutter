@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:teste_tokio/app/views/home_page_view.dart';
+import 'package:teste_tokio/app/views/login_view.dart';
 
 
 void main() => runApp(
@@ -19,13 +20,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'AppTeste Tokio',
       theme: ThemeData(
-        primarySwatch: Colors.grey,
+        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
 
       ),
 
       
-      home: HomePageView(),
+      home: LoginView(),
 
     );
   }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:teste_tokio/app/views/components/card_login.dart';
 import 'package:teste_tokio/app/views/components/custom_action_button.dart';
-import 'package:teste_tokio/app/views/components/custom_texField.dart';
+
 import 'package:teste_tokio/utils/color_theme_utils.dart';
 
 class LoginView extends StatefulWidget {
