@@ -169,7 +169,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   'Minha Conta',
                   style: TextStyle(color: Colors.white),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/Login');
+                
+                },
               ),
               ListTile(
                 leading: Icon(
@@ -191,7 +194,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   'Sair',
                   style: TextStyle(color: Colors.white),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushReplacementNamed('/LoginView');
+                },
               ),
                   Container(
       decoration: BoxDecoration(

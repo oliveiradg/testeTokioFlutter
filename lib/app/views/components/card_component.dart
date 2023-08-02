@@ -79,52 +79,57 @@ class CardComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Card(
-        color: color,
-        elevation: 2.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            width: 100,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconTheme(
-                  data: IconThemeData(
-                    color: Colors.white,
-                  ),
-                  child: ShaderMask(
-                    shaderCallback: (Rect bounds) {
-                      return LinearGradient(
-                        colors: [Color(0xFF128A44), Color(0xffFFC371)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ).createShader(bounds);
-                    },
-                    child: Icon(
-                      icon,
-                      size: 22,
+      child: InkWell(
+        onTap: () {},
+        child: Card(
+          
+          
+          color: color,
+          elevation: 2.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  IconTheme(
+                    data: IconThemeData(
+                      color: Colors.white,
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                      text: text,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    child: ShaderMask(
+                      shaderCallback: (Rect bounds) {
+                        return LinearGradient(
+                          colors: [Color(0xFF128A44), Color(0xffFFC371)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ).createShader(bounds);
+                      },
+                      child: Icon(
+                        icon,
+                        size: 22,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                        text: text,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

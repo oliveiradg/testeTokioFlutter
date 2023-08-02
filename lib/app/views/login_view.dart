@@ -101,11 +101,11 @@ class _LoginViewState extends State<LoginView> {
             child: Column(
               children: [
                 
-                Image.asset('assets/images/logo-tokio-BRANCO.png', 
-                        width: 140,  
-                        height: 120, 
-            ),
-            SizedBox(height: 26,),
+            //     Image.asset('assets/images/logo-tokio-BRANCO.png', 
+            //             width: 140,  
+            //             height: 120, 
+            // ),
+            // SizedBox(height: 26,),
               Text('Acesse através das Redes Sociais', style: TextStyle(color: Colors.white,),),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

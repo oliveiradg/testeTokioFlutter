@@ -79,6 +79,7 @@ class HomePageView extends StatelessWidget {
                 text: 'Moto',
               ),
               CardComponent(
+                
                 color: PaletaCores.corFSecundaria,
                 icon: Icons.home_work_rounded,
                 text: 'Empresas',
